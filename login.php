@@ -4,7 +4,7 @@ include 'connect.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM users;";
+$sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password';";
 try {
     $query = $conn->prepare($sql);
     $query->execute();
@@ -14,19 +14,28 @@ catch (PDOException $e) {
     $query = null;
     die("Virhe: " . $e->getMessage());
 }
-$res = $query->fetchAll();
-$conn = null;
-$query = null;
-if (count($res)) {
-    $found = array_search(array('username' => $username, 'password' => $password), $res);
+$user = $query->fetchAll();
+
+if (count($user)) {
+    $sql = "SELECT * FROM users;";
+    try {
+        $query = $conn->prepare($sql);
+        $query->execute();
+    }
+    catch (PDOException $e) {
+        $conn = null;
+        $query = null;
+        die("Virhe: " . $e->getMessage());
+    }
+    $users = $query->fetchAll();
+    $conn = null;
+    $query = null;
     session_start();
-    $_SESSION['user'] = $res[$found];
-    $_SESSION['users'] = $res;
+    $_SESSION['user'] = $user[0];
+    $_SESSION['users'] = $users;
     header('Location: home.php');
-    exit;
+    // exit;
 } else {
-    header('Location: error.php');
-exit;
+    header('Location: index.php');
 }
-echo count($res);
 ?>

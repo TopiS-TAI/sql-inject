@@ -1,8 +1,8 @@
 <?php
     $host="localhost";
-    $dbuser="next-admin";
-    $dbpassword="next-admin";
-    $db="next-admin";
+    $dbuser="sql-user";
+    $dbpassword="sql-user";
+    $db="sql-inject";
 
     try {
         $conn = new PDO("mysql:host=$host; dbname=$db", $dbuser, $dbpassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));

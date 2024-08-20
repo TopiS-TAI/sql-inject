@@ -1,5 +1,8 @@
 <?php
-    session_start()
+    session_start();
+    if(!array_key_exists('user', $_SESSION)) {
+        header("Location: index.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +14,10 @@
 </head>
 <body>
     <h1>Super foorumi</h1>
-    <p>Tervettuloa <?php echo $_SESSION['user']['realname'] ?></p>
+    <p>
+        Tervettuloa <?php echo $_SESSION['user']['realname']; ?>
+        <a href="logout.php"><button>Kirjaudu ulos</button></a>
+    </p>
     <?php
     include 'posts.php';
     include 'post-form.php';

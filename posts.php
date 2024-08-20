@@ -1,12 +1,12 @@
 <?php 
 include 'connect.php';
-session_start();
+
 ?>
 
 <ul>
     <hr>
     <?php
-        if(array_key_exists('user', $_SESSION)) {
+        
             $sql = "SELECT * FROM posts;";
             try {
                 $query = $conn->prepare($sql);
@@ -29,8 +29,6 @@ session_start();
                 <hr>
             </li>
             <?php }
-        } else {
-            echo "no user";
-        }
+        
     ?>
 </li>
