@@ -31,4 +31,4 @@ include 'connect.php';
             <?php }
         
     ?>
-</li>
+</ul>
