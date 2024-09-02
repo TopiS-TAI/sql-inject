@@ -4,10 +4,10 @@ include 'connect.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password';";
+$sql = "SELECT * FROM users WHERE username = :username AND password = :password;";
 try {
     $query = $conn->prepare($sql);
-    $query->execute();
+    $query->execute(['username'=>$username, 'password'=>$password]);
 }
 catch (PDOException $e) {
     $conn = null;
