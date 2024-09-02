@@ -23,9 +23,9 @@ include 'connect.php';
                 $author = $author[0];
                 ?>
             <li>
-                <h3><?php echo $row['title']; ?></h3>
-                <p><i><?php echo $row['posted'] . ' – ' . $author['realname']; ?></i></p>
-                <p><?php echo $row['body']; ?></p>
+                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                <p><i><?php echo $row['posted'] . ' – ' . htmlspecialchars($author['realname']); ?></i></p>
+                <p><?php echo htmlspecialchars($row['body']); ?></p>
                 <hr>
             </li>
             <?php }
