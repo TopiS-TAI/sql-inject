@@ -14,5 +14,6 @@
         <input type="password" name="password" id="passwordx"><br>
         <input type="submit" value="Login">
     </form>
+    <a href="sign-in-form.php"><button>Luo käyttäjä</button></a>
 </body>
 </html>

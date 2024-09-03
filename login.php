@@ -4,10 +4,10 @@ include 'connect.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM users WHERE username = :username AND password = :password;";
+$sql = "SELECT * FROM users WHERE username = :username;";
 try {
     $query = $conn->prepare($sql);
-    $query->execute(['username'=>$username, 'password'=>$password]);
+    $query->execute(['username'=>$username]);
 }
 catch (PDOException $e) {
     $conn = null;
@@ -17,6 +17,11 @@ catch (PDOException $e) {
 $user = $query->fetchAll();
 
 if (count($user)) {
+    $hash = $user[0]['password'];
+    $validLogin = password_verify($password, $hash);
+}
+
+if ($validLogin) {
     $sql = "SELECT * FROM users;";
     try {
         $query = $conn->prepare($sql);
@@ -35,7 +40,6 @@ if (count($user)) {
     $_SESSION['users'] = $users;
     session_regenerate_id(True);
     header('Location: home.php');
-    // exit;
 } else {
     header('Location: index.php');
 }
