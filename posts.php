@@ -28,8 +28,6 @@
                 <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                 <p><i><?php echo $row['posted'] . ' – ' . htmlspecialchars($author['realname']); ?></i></p>
                 <p><?php echo htmlspecialchars($row['body']); ?></p>
-                <p>User<?php echo $_SESSION['user']['id'] ?></p>
-                <p>Author<?php echo $author['id'] ?></p>
 
         <?php } else { ?>
             <form action="edit-post.php" method="post">

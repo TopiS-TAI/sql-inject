@@ -1,5 +1,4 @@
 <?php
-
 include 'connect.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -22,23 +21,10 @@ if (count($user)) {
 }
 
 if ($validLogin) {
-    $sql = "SELECT * FROM users;";
-    try {
-        $query = $conn->prepare($sql);
-        $query->execute();
-    }
-    catch (PDOException $e) {
-        $conn = null;
-        $query = null;
-        die("Virhe: " . $e->getMessage());
-    }
-    $users = $query->fetchAll();
-    $conn = null;
-    $query = null;
     session_start();
-    $_SESSION['user'] = $user[0];
-    $_SESSION['users'] = $users;
     session_regenerate_id(True);
+    include 'get-users.php';
+    $_SESSION['user'] = $user[0];
     header('Location: home.php');
 } else {
     header('Location: index.php');
