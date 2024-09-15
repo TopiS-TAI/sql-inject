@@ -17,6 +17,7 @@
     <p>
         Tervettuloa <?php echo $_SESSION['user']['realname']; ?>
         <a href="logout.php"><button>Kirjaudu ulos</button></a>
+        <a href="publickey.php"><button>Julkinen avain</button></a>
         <?php if ($_SESSION['user']['role'] == 'admin') {
             echo '<a href="users.php">Käyttäjäinhallinta</a>';
         }
