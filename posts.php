@@ -1,53 +1,7 @@
 <style>
-    li::marker {
-        font-size: 1.5em;
-    }
-    li.sig-ok {
-        list-style-type: '✓';
-        &::marker {
-            color: green;
-        }
-    }
-    li.sig-fail {
-        list-style-type: '✗';
-        background-color: #FDD;
-        &::marker {
-            color: red;
-        }
-    }
-    li details {
-        font-size:0.9em;
-        font-family: sans-serif;
-        color: rgba(0,0,0,0.67);
-    }
-    li details pre {
-        max-width: 39em;
-        text-wrap: wrap;
-        overflow-wrap: break-word;
-        background-color: rgba(0, 0, 0, 0.08);
-        padding: 0.5em;
-    }
-    li summary {
-        cursor: pointer;
-        color: rgba(0,0,0,0.33);
-    }
-    li input#title {
-        font-family: serif;
-        font-weight: 600;
-        font-size: 1.1em;
-        border: 1px solid #DDD;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.5);
-    }
-    li textarea#body {
-        font-family: serif;
-        font-size: 1em;
-        border: 1px solid #DDD;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.5);
-    }
+
 </style>
-<ul>
+<ul class="posts">
     <hr>
     <?php
             include 'connect.php';
@@ -86,25 +40,27 @@
                 ) {
                 ?>
                 <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-                <p><i><?php echo $row['posted'] . ' – ' . htmlspecialchars($author['realname']); ?></i></p>
-                <p><?php echo htmlspecialchars($row['body']); ?></p>
+                <div class="post-info"><i><?php echo $row['posted'] . ' – ' . htmlspecialchars($author['realname']); ?></i></div>
+                <div class="body"><?php echo htmlspecialchars($row['body']); ?></div>
                 <?php
                     if ($sig_ok != 2) {
                         ?>
-                        <details>
-                            <summary>Julkinen avain</summary>
-                            <pre><?php echo $author['publickey']; ?></pre>
-                        </details>
-                        <details>
-                            <summary>Allekirjoitus</summary>
-                            <pre><?php echo $row['signature']; ?></pre>
-                        </details>
+                        <div class="signature">
+                            <details>
+                                <summary>Julkinen avain</summary>
+                                <pre><?php echo $author['publickey']; ?></pre>
+                            </details>
+                            <details>
+                                <summary>Allekirjoitus</summary>
+                                <pre><?php echo $row['signature']; ?></pre>
+                            </details>
+                        </div>
                     <?php } ?>
         <?php } else { ?>
             <form action="edit-post.php" method="post">
-                <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>"><br>
-                <p><i><?php echo $row['posted'] . ' – ' . htmlspecialchars($author['realname']); ?></i></p>
-                <textarea name="body" id="body"><?php echo $row['body']; ?></textarea><br>
+                <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>">
+                <div class="post-info"><i><?php echo $row['posted'] . ' – ' . htmlspecialchars($author['realname']); ?></i></div>
+                <textarea name="body" id="body"><?php echo $row['body']; ?></textarea>
                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                 <input type="hidden" name="author" value="<?php echo $row['author']; ?>">
                 <input type="submit" value="Päivitä">
@@ -118,7 +74,6 @@
                         <input type="submit" value="Poista">
                     </form>
             <?php } ?>
-            <hr>
         </li>
     <?php } ?>
 </ul>

@@ -14,40 +14,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Käyttäjät</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body> 
-    <h1>Käyttäjät</h1>
-    <a href="home.php">Postit</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Käyttäjänimi</th>
-                <th>Oikea nimi</th>
-                <th>Rooli</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                foreach($users as $user) { ?>
-                    <tr>
-                        <td><?php echo $user['username']; ?></td>
-                        <td><?php echo $user['realname']; ?></td>
-                        <td>
-                            <form action="put-role.php" method="post">
-                                <select onchange="this.form.submit()" name="role" id="role" value="<?php echo $user['role'] ?>">
-                                    <option value="user" <?php echo $user['role'] == 'user' ? 'selected' : ''; ?>>Käyttäjä</option>
-                                    <option value="moderator" <?php echo $user['role'] == 'moderator' ? 'selected' : ''; ?>>Moderaattori</option>
-                                    <option value="admin" <?php echo $user['role'] == 'admin' ? 'selected' : ''; ?>>Pääkäyttäjä</option>
-                                </select>
-                                <input type="hidden" name="id" value="<?php echo $user['id'] ?>">
-                            </form>
-                            
-                        </td>
-                    </tr>
-                <?php }
-            ?>
-        </tbody>
-    </table>
+    <?php include 'header.php'; ?>
+    <main>
+        <h1>Käyttäjät</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Käyttäjänimi</th>
+                    <th>Oikea nimi</th>
+                    <th>Rooli</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    foreach($users as $user) { ?>
+                        <tr>
+                            <td><?php echo $user['username']; ?></td>
+                            <td><?php echo $user['realname']; ?></td>
+                            <td>
+                                <form action="put-role.php" method="post">
+                                    <select onchange="this.form.submit()" name="role" id="role" value="<?php echo $user['role'] ?>">
+                                        <option value="user" <?php echo $user['role'] == 'user' ? 'selected' : ''; ?>>Käyttäjä</option>
+                                        <option value="moderator" <?php echo $user['role'] == 'moderator' ? 'selected' : ''; ?>>Moderaattori</option>
+                                        <option value="admin" <?php echo $user['role'] == 'admin' ? 'selected' : ''; ?>>Pääkäyttäjä</option>
+                                    </select>
+                                    <input type="hidden" name="id" value="<?php echo $user['id'] ?>">
+                                </form>
+        
+                            </td>
+                        </tr>
+                    <?php }
+                ?>
+            </tbody>
+        </table>
+    </main>
     
 </body>
 </html>

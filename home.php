@@ -11,21 +11,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super foorumi</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Super foorumi</h1>
-    <p>
-        Tervettuloa <?php echo $_SESSION['user']['realname']; ?>
-        <a href="logout.php"><button>Kirjaudu ulos</button></a>
-        <a href="publickey.php"><button>Julkinen avain</button></a>
-        <?php if ($_SESSION['user']['role'] == 'admin') {
-            echo '<a href="users.php">Käyttäjäinhallinta</a>';
-        }
-        ?>
-    </p>
+    <?php
+    include 'header.php';
+    ?>
+    <main>
+        <h1>Keskustelu</h1>
     <?php
     include 'posts.php';
     include 'post-form.php';
     ?>
+    </main>
 </body>
 </html>
